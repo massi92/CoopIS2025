@@ -1,0 +1,15 @@
+<AnalysisScenario id="AS3">
+    <Step id="1" name="features selection" supervisedBy="OEM">
+        <Task id="1" name="internal and external temperatures features selection with factor analysis" />
+    </Step>
+    <Step id="2" name="displacements prediction" supervisedBy="OEM">
+		<Task id="1" name="create dataset with internal temperatures, external temperatures, displacements" />	
+        <Task id="2" name="train-test dataset split" />
+        <Task id="3" name="regression coefficients calculation with multiple linear regression analysis (MLRA)" />
+        <Task id="4" name="calculation of predicted displacements" />
+    </Step>
+    <Step id="3" name="comparison of predicted vs real displacements" supervisedBy="OEM">
+        <Task id="1" name="calculation of pearson correlation" />
+		<Task id="2" name="calculation of mean root squared error" />
+    </Step>
+</AnalysisScenario>

@@ -1,0 +1,30 @@
+<AnalysisScenario id="AS1" specialises="AS3.xml">
+    <Step id="1" name="collection of measures" supervisedBy="Client company">
+        <Task id="1" name="internal temperature sensors data collection" service="csv_data_retrieval"/>
+        <Task id="2" name="external temperature sensors data collection" service="csv_data_retrieval"/>
+        <Task id="3" name="Displacements comparators data collection" service="csv_data_retrieval"/>
+        <Task id="4" name="Data shaping - internal temperatures" service="data_shaping"/>
+        <Task id="5" name="Data shaping - external temperatures" service="data_shaping"/>
+        <Task id="6" name="Data shaping - displacements" service="data_shaping"/>
+    </Step>
+    <Step id="2" name="interpolation of measures" supervisedBy="OEM">
+        <Task id="1" name="Timestamp alignment" service="datetime_conversion"/>
+        <Task id="2" name="Linear interpolation - external temperatures" service="linear_interpolation"/>
+        <Task id="3" name="Linear interpolation - displacements" service="linear_interpolation"/>
+        <Task id="4" name="merge internal and external temperatures datasets" service="data_shaping"/>
+    </Step>
+    <Step id="3" name="features selection" supervisedBy="OEM">
+        <Task id="1" name="internal and external temperatures features selection with factor analysis" service="factor_analysis_feature_selection" />
+    </Step>
+    <Step id="4" name="displacements prediction" supervisedBy="OEM">
+		<Task id="1" name="create dataset with internal temperatures, external temperatures, displacements" service="data_shaping"/>	
+        <Task id="2" name="train-test dataset split" service="train_test_split"/>
+        <Task id="3" name="regression coefficients calculation with multiple linear regression analysis (MLRA)" service="mlra_algorithm"/>
+        <Task id="4" name="calculation of predicted displacements" service="regression_calculation"/>
+    </Step>
+    <Step id="5" name="comparison of predicted vs real displacements" supervisedBy="OEM">
+        <Task id="1" name="calculation of pearson correlation" service="comparison_output_algorithms"/>
+		<Task id="2" name="calculation of mean root squared error" service="comparison_output_algorithms"/>
+    </Step>
+    </Step>
+</AnalysisScenario>
