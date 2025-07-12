@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "srv9",
+    "version": "1.0.0",
+    "x-service-type": "DISPATCH"
+  },
+  "paths": {
+    "/apply_hierarchical_clustering": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataframe": {
+                    "type": "object"
+                  },
+                  "threshold": {
+                    "type": "number"
+                  },
+                  "projection_attributes": {
+                    "type": "string"
+                  },
+                  "filter_expression": {
+                    "type": "string"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "dataframe",
+                  "threshold"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "selected_dataframe": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

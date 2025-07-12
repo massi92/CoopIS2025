@@ -1,0 +1,98 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Predictive Maintenance Algorithm Service",
+    "description": "A service that applies predictive maintenance algorithms to sensor log data",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/predict_maintenance": {
+      "post": {
+        "summary": "Apply Predictive Maintenance Algorithm",
+        "description": "Analyze machine sensor log data to predict potential equipment failures",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sensor_data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "Time-series sensor log data for machine performance"
+                  },
+                  "prediction_horizon": {
+                    "type": "integer",
+                    "description": "Number of time units ahead to predict potential failures"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "sensor_data",
+                  "prediction_horizon"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful prediction of maintenance needs",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "failure_probability": {
+                      "type": "number",
+                      "description": "Probability of equipment failure"
+                    },
+                    "recommended_actions": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Suggested maintenance actions"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

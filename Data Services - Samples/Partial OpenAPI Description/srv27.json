@@ -1,0 +1,128 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "srv27",
+    "description": "",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/quality_control_inspection": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inspection_images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "base64"
+                    },
+                    "description": ""
+                  },
+                  "quality_parameters": {
+                    "type": "object",
+                    "properties": {
+                      "defect_types": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": ""
+                      },
+                      "acceptance_threshold": {
+                        "type": "number",
+                        "description": ""
+                      }
+                    }
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "inspection_images",
+                  "quality_parameters"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "overall_quality_score": {
+                      "type": "number",
+                      "description": ""
+                    },
+                    "defect_analysis": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "image_index": {
+                            "type": "integer",
+                            "description": ""
+                          },
+                          "detected_defects": {
+                            "type": "array",
+                            "items": {
+                              "type": "object"
+                            },
+                            "description": ""
+                          }
+                        }
+                      },
+                      "description": ""
+                    },
+                    "pass_fail_status": {
+                      "type": "boolean",
+                      "description": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

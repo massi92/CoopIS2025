@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CNC Machine Tool Wear Data Analysis Service",
+    "description": "A service that analyzes CNC machine tool wear data for predictive maintenance",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/analyze_tool_wear": {
+      "post": {
+        "summary": "Analyze CNC Machine Tool Wear Data",
+        "description": "Process and analyze tool wear data to predict maintenance needs",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tool_wear_logs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "Time-series tool wear measurement data"
+                  },
+                  "analysis_parameters": {
+                    "type": "object",
+                    "properties": {
+                      "wear_threshold": {
+                        "type": "number",
+                        "description": "Maximum acceptable tool wear level"
+                      },
+                      "prediction_horizon": {
+                        "type": "integer",
+                        "description": "Number of time units to predict future wear"
+                      }
+                    }
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "tool_wear_logs",
+                  "analysis_parameters"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful tool wear data analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_wear_assessment": {
+                      "type": "object",
+                      "description": "Current tool wear status"
+                    },
+                    "wear_prediction": {
+                      "type": "object",
+                      "description": "Predicted future wear trajectory"
+                    },
+                    "maintenance_recommendations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Recommended maintenance actions"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "srv16",
+    "version": "1.0.0",
+    "x-service-type": "DISPATCH"
+  },
+  "paths": {
+    "/merge-datasets": {
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "primary_dataset": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "secondary_datasets": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "merge_on": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "how": {
+                    "type": "string",
+                    "enum": [
+                      "left",
+                      "right",
+                      "outer",
+                      "inner"
+                    ],
+                    "default": "inner"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "primary_dataset"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Merged dataset",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "merged_dataset": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

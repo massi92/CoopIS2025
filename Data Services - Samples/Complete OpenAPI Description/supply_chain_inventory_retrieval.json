@@ -1,0 +1,63 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Supply Chain Inventory Data Retrieval",
+    "version": "1.0.0",
+    "description": "A service to retrieve supply chain inventory data.",
+    "x-service-type": "COLLECT"
+  },
+  "paths": {
+    "/read-supply-chain-inventory": {
+      "get": {
+        "summary": "Retrieve supply chain inventory data",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "query",
+            "description": "Path to the supply chain inventory data file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projection_attributes",
+            "in": "query",
+            "description": "Subset of attributes to include in the result",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter_expression",
+            "in": "query",
+            "description": "Boolean expression to filter supply chain inventory data",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful supply chain inventory data retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Supply chain inventory data file not found"
+          }
+        }
+      }
+    }
+  }
+}

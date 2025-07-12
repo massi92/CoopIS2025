@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Production Line Efficiency Comparison Service",
+    "description": "A service that compares and analyzes production line efficiency models",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/compare_production_efficiency": {
+      "post": {
+        "summary": "Compare Production Line Efficiency Models",
+        "description": "Compare multiple production line efficiency models and generate performance insights",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "production_models": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "Collection of production line efficiency models"
+                  },
+                  "comparison_metrics": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Metrics to use for model comparison"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "production_models",
+                  "comparison_metrics"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful comparison of production line efficiency models",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model_rankings": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": "Ranked models based on comparison metrics"
+                    },
+                    "comparative_analysis": {
+                      "type": "object",
+                      "description": "Detailed analysis of model differences"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

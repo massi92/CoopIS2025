@@ -1,0 +1,93 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Model Comparison Service",
+    "description": "A service that compares the outputs of two learning models using Pandas DataFrames containing the data.",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR",
+    "x-service-task-type": "COMPARISON"
+  },
+  "paths": {
+    "/compare_models": {
+      "post": {
+        "summary": "Compare Model Outputs",
+        "description": "Compare the outputs of two learning models using the input datasets.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model1_output": {
+                    "type": "object",
+                    "description": "Output of the first learning model"
+                  },
+                  "model2_output": {
+                    "type": "object",
+                    "description": "Output of the second learning model"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "model1_output",
+                  "model2_output"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "correlation": {
+                      "type": "number",
+                      "description": "Correlation coefficient between the outputs of the two models"
+                    },
+                    "rmse": {
+                      "type": "number",
+                      "description": "Root Mean Squared Error between the outputs of the two models"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

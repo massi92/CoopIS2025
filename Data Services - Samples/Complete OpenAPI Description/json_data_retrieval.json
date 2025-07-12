@@ -1,0 +1,61 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "JSON data retrieval",
+    "version": "1.0.0",
+    "description": "A service to retrieve the content of a JSON file.",
+    "x-service-type": "COLLECT"
+  },
+  "paths": {
+    "/read-json": {
+      "get": {
+        "summary": "Retrieve JSON content from a given path",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "query",
+            "description": "The path of the JSON file.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projection_attributes",
+            "in": "query",
+            "description": "Subset of attributes to include in the result",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter_expression",
+            "in": "query",
+            "description": "Boolean expression based on attributes",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON file not found"
+          }
+        }
+      }
+    }
+  }
+}

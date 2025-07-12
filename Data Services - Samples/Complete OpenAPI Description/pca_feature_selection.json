@@ -1,0 +1,96 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "PCA Feature Selection Service",
+    "description": "A service that applies PCA feature selection algorithm over a Pandas DataFrame.",
+    "version": "1.0.0",
+    "x-service-type": "DISPATCH"
+  },
+  "paths": {
+    "/apply_pca": {
+      "post": {
+        "summary": "Apply PCA feature selection algorithm",
+        "description": "Apply PCA feature selection algorithm over the input Pandas DataFrame and return the DataFrame containing the selected variables.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataframe": {
+                    "type": "object",
+                    "description": "Pandas DataFrame"
+                  },
+                  "columns_for_pca": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of column names for PCA feature selection"
+                  },
+                  "threshold": {
+                    "type": "number",
+                    "description": "Threshold for the explained variance percentage"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "dataframe",
+                  "columns_for_pca",
+                  "threshold"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "selected_dataframe": {
+                      "type": "object",
+                      "description": "DataFrame containing the selected variables after PCA"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

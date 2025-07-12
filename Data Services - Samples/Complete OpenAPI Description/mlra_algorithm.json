@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Multiple Linear Regression Service",
+    "description": "A service that implements a Multiple Linear Regression model using a Pandas DataFrame containing the data.",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR",
+    "x-service-task-type": "PREDICTION"
+  },
+  "paths": {
+    "/multiple_linear_regression": {
+      "post": {
+        "summary": "Perform Multiple Linear Regression",
+        "description": "Perform Multiple Linear Regression using the input dataset.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataframe": {
+                    "type": "object",
+                    "description": "Pandas DataFrame"
+                  },
+                  "independent_variables": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of independent variable names"
+                  },
+                  "dependent_variable": {
+                    "type": "string",
+                    "description": "Dependent variable name"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "dataframe",
+                  "independent_variables",
+                  "dependent_variable"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model_summary": {
+                      "type": "object",
+                      "description": "Summary of the Multiple Linear Regression model"
+                    },
+                    "coefficients": {
+                      "type": "object",
+                      "description": "Coefficients of the independent variables"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

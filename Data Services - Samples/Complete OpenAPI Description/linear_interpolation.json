@@ -1,0 +1,106 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "1D Interpolation API",
+    "version": "1.0.0",
+    "description": "API for performing 1D interpolation on a Pandas dataset"
+  },
+  "paths": {
+    "/interpolate": {
+      "post": {
+        "summary": "Perform 1D interpolation on a Pandas dataset",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataset": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The dataset in CSV format"
+                  },
+                  "timestamp_column": {
+                    "type": "string",
+                    "description": "The column name containing the timestamp"
+                  },
+                  "reference_temporal_axis": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "description": "The reference temporal axis for the interpolation"
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": [
+                      "linear",
+                      "time",
+                      "index",
+                      "pad",
+                      "nearest",
+                      "zero",
+                      "slinear",
+                      "quadratic",
+                      "cubic",
+                      "spline",
+                      "barycentric",
+                      "polynomial",
+                      "krogh",
+                      "piecewise_polynomial",
+                      "pchip",
+                      "akima"
+                    ],
+                    "default": "linear",
+                    "description": "The interpolation method"
+                  }
+                },
+                "required": [
+                  "dataset",
+                  "timestamp_column",
+                  "reference_temporal_axis"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Interpolated dataset",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "interpolated_dataset": {
+                      "type": "string",
+                      "format": "binary",
+                      "description": "The resulting interpolated dataset in CSV format"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

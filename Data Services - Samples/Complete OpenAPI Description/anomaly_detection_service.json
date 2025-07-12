@@ -1,0 +1,109 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Advanced Anomaly Detection Service",
+    "description": "A service that applies sophisticated anomaly detection algorithms to industrial datasets",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/detect_anomalies": {
+      "post": {
+        "summary": "Apply Anomaly Detection Algorithm",
+        "description": "Detect unusual patterns or outliers in industrial data",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataset": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "Time-series or multivariate dataset"
+                  },
+                  "detection_method": {
+                    "type": "string",
+                    "enum": [
+                      "isolation_forest",
+                      "local_outlier_factor",
+                      "one_class_svm",
+                      "elliptic_envelope"
+                    ],
+                    "description": "Anomaly detection algorithm to use"
+                  },
+                  "contamination_rate": {
+                    "type": "number",
+                    "description": "Expected proportion of anomalies in the dataset"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "dataset",
+                  "detection_method",
+                  "contamination_rate"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful anomaly detection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "anomalies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": "Detected anomalous data points"
+                    },
+                    "anomaly_score": {
+                      "type": "object",
+                      "description": "Scoring of anomalies by severity"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

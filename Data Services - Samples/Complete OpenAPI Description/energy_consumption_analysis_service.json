@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Energy Consumption Analysis Service",
+    "description": "A service that analyzes and provides insights into industrial energy consumption patterns",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/analyze_energy_consumption": {
+      "post": {
+        "summary": "Analyze Industrial Energy Consumption",
+        "description": "Process time-series energy consumption data to identify efficiency opportunities",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "energy_data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "Time-series energy consumption measurements"
+                  },
+                  "analysis_parameters": {
+                    "type": "object",
+                    "properties": {
+                      "peak_load_threshold": {
+                        "type": "number",
+                        "description": "Maximum acceptable peak energy load"
+                      },
+                      "efficiency_target": {
+                        "type": "number",
+                        "description": "Target energy efficiency percentage"
+                      }
+                    }
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "energy_data",
+                  "analysis_parameters"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful energy consumption analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "energy_efficiency_score": {
+                      "type": "number",
+                      "description": "Overall energy efficiency rating"
+                    },
+                    "optimization_recommendations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Suggested energy consumption improvements"
+                    },
+                    "consumption_patterns": {
+                      "type": "object",
+                      "description": "Detailed breakdown of energy consumption patterns"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

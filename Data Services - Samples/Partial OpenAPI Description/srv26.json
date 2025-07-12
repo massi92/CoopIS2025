@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "srv26",
+    "description": "",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/analyze_tool_wear": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tool_wear_logs": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": ""
+                  },
+                  "analysis_parameters": {
+                    "type": "object",
+                    "properties": {
+                      "wear_threshold": {
+                        "type": "number",
+                        "description": ""
+                      },
+                      "prediction_horizon": {
+                        "type": "integer",
+                        "description": ""
+                      }
+                    }
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "tool_wear_logs",
+                  "analysis_parameters"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "current_wear_assessment": {
+                      "type": "object",
+                      "description": ""
+                    },
+                    "wear_prediction": {
+                      "type": "object",
+                      "description": ""
+                    },
+                    "maintenance_recommendations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

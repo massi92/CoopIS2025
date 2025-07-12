@@ -1,0 +1,63 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Battery Manufacturing Quality Data Retrieval",
+    "version": "1.0.0",
+    "description": "A service to retrieve battery manufacturing quality data.",
+    "x-service-type": "COLLECT"
+  },
+  "paths": {
+    "/read-battery-quality": {
+      "get": {
+        "summary": "Retrieve battery manufacturing quality data",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "query",
+            "description": "Path to the battery manufacturing quality data file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projection_attributes",
+            "in": "query",
+            "description": "Subset of attributes to include in the result",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter_expression",
+            "in": "query",
+            "description": "Boolean expression to filter battery manufacturing quality data",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful battery manufacturing quality data retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Battery manufacturing quality data file not found"
+          }
+        }
+      }
+    }
+  }
+}

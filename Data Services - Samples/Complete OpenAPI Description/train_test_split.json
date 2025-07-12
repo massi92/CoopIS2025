@@ -1,0 +1,100 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "DataFrame Splitter Service",
+    "description": "A service to split a Pandas DataFrame into train and test parts",
+    "version": "1.0.0",
+    "x-service-type": "DISPATCH"
+  },
+  "paths": {
+    "/split_data": {
+      "post": {
+        "summary": "Split DataFrame into train and test parts",
+        "description": "This endpoint takes a Pandas DataFrame as input and splits it into train and test parts.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataframe": {
+                    "type": "object",
+                    "additionalProperties": {}
+                  },
+                  "test_size": {
+                    "type": "number",
+                    "description": "The proportion of the dataset to include in the test split (0-1)"
+                  },
+                  "random_state": {
+                    "type": "integer",
+                    "description": "Seed for the random number generator for reproducibility"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "dataframe",
+                  "test_size"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation. Returns the train and test splits of the input DataFrame.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "train": {
+                      "type": "object",
+                      "additionalProperties": {}
+                    },
+                    "test": {
+                      "type": "object",
+                      "additionalProperties": {}
+                    }
+                  },
+                  "required": [
+                    "train",
+                    "test"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

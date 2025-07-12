@@ -1,0 +1,63 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Robotic Arm Performance Log Retrieval",
+    "version": "1.0.0",
+    "description": "A service to retrieve robotic arm performance log data.",
+    "x-service-type": "COLLECT"
+  },
+  "paths": {
+    "/read-robotic-arm-log": {
+      "get": {
+        "summary": "Retrieve robotic arm performance logs",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "query",
+            "description": "Path to the robotic arm performance log file",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "projection_attributes",
+            "in": "query",
+            "description": "Subset of attributes to include in the result",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter_expression",
+            "in": "query",
+            "description": "Boolean expression to filter robotic arm performance log data",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful robotic arm performance log retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Robotic arm performance log file not found"
+          }
+        }
+      }
+    }
+  }
+}

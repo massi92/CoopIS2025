@@ -1,0 +1,243 @@
+@prefix : <http://www.semanticweb.org/ADS/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/ADS/> .
+
+<http://www.semanticweb.org/ADS> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/ADS#appliedOn
+:appliedOn rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty ;
+           rdfs:domain :Attribute ;
+           rdfs:range :DataOperation .
+
+
+###  http://www.semanticweb.org/ADS#associatedWith
+:associatedWith rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty ;
+                rdfs:domain :DataService ;
+                rdfs:range :DescriptionDocument .
+
+
+###  http://www.semanticweb.org/ADS#composedOf
+:composedOf rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty ;
+            rdfs:domain :Dataset ;
+            rdfs:range :DataRecord .
+
+
+###  http://www.semanticweb.org/ADS#describedIn
+:describedIn rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :Property ;
+             rdfs:range :DescriptionDocument .
+
+
+###  http://www.semanticweb.org/ADS#exploits
+:exploits rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdfs:domain :ComparisonService ;
+          rdfs:range :Threshold .
+
+
+###  http://www.semanticweb.org/ADS#hasAttribute
+:hasAttribute rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty ;
+              rdfs:domain :DataRecord ;
+              rdfs:range :Attribute .
+
+
+###  http://www.semanticweb.org/ADS#hasProperty
+:hasProperty rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty ;
+             rdfs:domain :DataService ;
+             rdfs:range :Property .
+
+
+###  http://www.semanticweb.org/ADS#input
+:input rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf owl:topObjectProperty ;
+       rdfs:domain :DataService ;
+       rdfs:range :Dataset .
+
+
+###  http://www.semanticweb.org/ADS#output
+:output rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        rdfs:domain :DataService ;
+        rdfs:range :Dataset .
+
+
+###  http://www.semanticweb.org/ADS#regards
+:regards rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdfs:domain :Threshold ;
+         rdfs:range :Attribute .
+
+
+###  http://www.semanticweb.org/ADS#supplies
+:supplies rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          rdfs:domain :DataService ;
+          rdfs:range :DataOperation .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/ADS#hasAggregationType
+:hasAggregationType rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf owl:topDataProperty ;
+                    rdfs:domain :AggregationOperation ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ADS#hasAttributeName
+:hasAttributeName rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain :Attribute ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ADS#hasAttributeValue
+:hasAttributeValue rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf owl:topDataProperty ;
+                   rdfs:domain :Attribute .
+
+
+###  http://www.semanticweb.org/ADS#hasDescription
+:hasDescription rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf owl:topDataProperty ;
+                rdfs:domain :DataService ;
+                rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ADS#hasFunction
+:hasFunction rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :TransformationOperation .
+
+
+###  http://www.semanticweb.org/ADS#hasPath
+:hasPath rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty ;
+         rdfs:domain :DescriptionDocument ;
+         rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ADS#hasPropertyName
+:hasPropertyName rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf owl:topDataProperty ;
+                 rdfs:domain :Property ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ADS#hasPropertyValue
+:hasPropertyValue rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf owl:topDataProperty ;
+                  rdfs:domain :Property ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.semanticweb.org/ADS#hasStandard
+:hasStandard rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf owl:topDataProperty ;
+             rdfs:domain :DescriptionDocument ;
+             rdfs:range xsd:string .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/ADS#AggregationOperation
+:AggregationOperation rdf:type owl:Class ;
+                      rdfs:subClassOf :DataOperation .
+
+
+###  http://www.semanticweb.org/ADS#Attribute
+:Attribute rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#ClassificationService
+:ClassificationService rdf:type owl:Class ;
+                       rdfs:subClassOf :MonitorService .
+
+
+###  http://www.semanticweb.org/ADS#CollectService
+:CollectService rdf:type owl:Class ;
+                rdfs:subClassOf :DataService .
+
+
+###  http://www.semanticweb.org/ADS#ComparisonService
+:ComparisonService rdf:type owl:Class ;
+                   rdfs:subClassOf :MonitorService .
+
+
+###  http://www.semanticweb.org/ADS#DataOperation
+:DataOperation rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#DataRecord
+:DataRecord rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#DataService
+:DataService rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#Dataset
+:Dataset rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#DescriptionDocument
+:DescriptionDocument rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#DispatchService
+:DispatchService rdf:type owl:Class ;
+                 rdfs:subClassOf :DataService .
+
+
+###  http://www.semanticweb.org/ADS#MonitorService
+:MonitorService rdf:type owl:Class ;
+                rdfs:subClassOf :DataService .
+
+
+###  http://www.semanticweb.org/ADS#PredictionService
+:PredictionService rdf:type owl:Class ;
+                   rdfs:subClassOf :MonitorService .
+
+
+###  http://www.semanticweb.org/ADS#ProjectionOperation
+:ProjectionOperation rdf:type owl:Class ;
+                     rdfs:subClassOf :DataOperation .
+
+
+###  http://www.semanticweb.org/ADS#Property
+:Property rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#SelectionOperation
+:SelectionOperation rdf:type owl:Class ;
+                    rdfs:subClassOf :DataOperation .
+
+
+###  http://www.semanticweb.org/ADS#Threshold
+:Threshold rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/ADS#TransformationOperation
+:TransformationOperation rdf:type owl:Class ;
+                         rdfs:subClassOf :DataOperation .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi

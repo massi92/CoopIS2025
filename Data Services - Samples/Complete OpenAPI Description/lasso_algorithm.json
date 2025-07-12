@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Lasso Regression Service",
+    "description": "A service that implements Lasso Regression using a Pandas DataFrame containing the data.",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR",
+    "x-service-task-type": "PREDICTION"
+  },
+  "paths": {
+    "/lasso_regression": {
+      "post": {
+        "summary": "Perform Lasso Regression",
+        "description": "Perform Lasso Regression using the input dataset.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataframe": {
+                    "type": "object",
+                    "description": "Pandas DataFrame"
+                  },
+                  "independent_variables": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of independent variable names"
+                  },
+                  "dependent_variable": {
+                    "type": "string",
+                    "description": "Dependent variable name"
+                  },
+                  "alpha": {
+                    "type": "number",
+                    "description": "Regularization strength (alpha)"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "dataframe",
+                  "independent_variables",
+                  "dependent_variable",
+                  "alpha"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model_summary": {
+                      "type": "object",
+                      "description": "Summary of the Lasso Regression model"
+                    },
+                    "coefficients": {
+                      "type": "object",
+                      "description": "Coefficients of the independent variables"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Supply Chain Inventory Data Analysis Service",
+    "description": "A service that analyzes supply chain inventory data for optimization",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/analyze_inventory": {
+      "post": {
+        "summary": "Analyze Supply Chain Inventory Data",
+        "description": "Process and analyze inventory data to identify optimization opportunities",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "inventory_data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "Time-series supply chain inventory data"
+                  },
+                  "analysis_parameters": {
+                    "type": "object",
+                    "properties": {
+                      "stockout_risk_tolerance": {
+                        "type": "number",
+                        "description": "Maximum acceptable stockout risk percentage"
+                      },
+                      "holding_cost_weight": {
+                        "type": "number",
+                        "description": "Weight of holding costs in optimization"
+                      }
+                    }
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "inventory_data",
+                  "analysis_parameters"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful supply chain inventory analysis",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "inventory_optimization_recommendations": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "Recommendations for inventory management"
+                    },
+                    "risk_assessment": {
+                      "type": "object",
+                      "description": "Detailed inventory risk analysis"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Data Shaping API",
+    "version": "1.0.0",
+    "description": "API for merging multiple Pandas datasets"
+  },
+  "paths": {
+    "/merge-datasets": {
+      "post": {
+        "summary": "Merge multiple Pandas datasets",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "primary_dataset": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The primary dataset in CSV format"
+                  },
+                  "secondary_datasets": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary",
+                      "description": "Additional datasets to be merged with the primary dataset, in CSV format"
+                    }
+                  },
+                  "merge_on": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of column names to merge on"
+                  },
+                  "how": {
+                    "type": "string",
+                    "enum": [
+                      "left",
+                      "right",
+                      "outer",
+                      "inner"
+                    ],
+                    "default": "inner",
+                    "description": "Type of merge to be performed"
+                  }
+                },
+                "required": [
+                  "primary_dataset"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Merged dataset",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "merged_dataset": {
+                      "type": "string",
+                      "format": "binary",
+                      "description": "The resulting merged dataset in CSV format"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

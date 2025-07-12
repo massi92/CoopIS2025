@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "srv25",
+    "description": "",
+    "version": "1.0.0",
+    "x-service-type": "MONITOR"
+  },
+  "paths": {
+    "/forecast_product_quality": {
+      "post": {
+        "summary": "",
+        "description": "",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "historical_quality_data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": ""
+                  },
+                  "forecasting_parameters": {
+                    "type": "object",
+                    "properties": {
+                      "forecast_horizon": {
+                        "type": "integer",
+                        "description": ""
+                      },
+                      "quality_metrics": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": ""
+                      }
+                    }
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "historical_quality_data",
+                  "forecasting_parameters"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "quality_forecast": {
+                      "type": "object",
+                      "description": ""
+                    },
+                    "forecast_confidence_intervals": {
+                      "type": "object",
+                      "description": ""
+                    },
+                    "potential_quality_risks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

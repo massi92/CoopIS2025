@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Pandas DataFrame DateTime Conversion Service",
+    "version": "1.0.0",
+    "description": "A service that converts a specified column in a Pandas DataFrame to datetime format.",
+    "x-service-type": "DISPATCH"
+  },
+  "paths": {
+    "/convert_datetime": {
+      "post": {
+        "summary": "Convert DataFrame column to datetime",
+        "description": "Converts a specified column in a Pandas DataFrame to datetime format.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "dataframe": {
+                    "type": "object",
+                    "description": "The Pandas DataFrame object to be processed."
+                  },
+                  "column_name": {
+                    "type": "string",
+                    "description": "The name of the column in the DataFrame to convert to datetime."
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "dataframe",
+                  "column_name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "DataFrame with converted column",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "dataframe": {
+                      "type": "object",
+                      "description": "The Pandas DataFrame object with the specified column converted to datetime."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

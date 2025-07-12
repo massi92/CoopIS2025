@@ -1,0 +1,92 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Regression Calculation API",
+    "version": "1.0.0",
+    "description": "API for calculating target values using a test set and regression coefficients"
+  },
+  "paths": {
+    "/calculate-target": {
+      "post": {
+        "summary": "Calculate target values using a test set and regression coefficients",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "test_set": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The test set in CSV format"
+                  },
+                  "regression_coefficients": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "description": "The regression coefficients"
+                  },
+                  "feature_columns": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of column names used for calculating the target"
+                  },
+                  "target_column": {
+                    "type": "string",
+                    "description": "The name of the target column"
+                  }
+                },
+                "required": [
+                  "test_set",
+                  "regression_coefficients",
+                  "feature_columns",
+                  "target_column"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Calculated target values",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "target_values": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      },
+                      "description": "The calculated target values"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Machine Learning Classification Service",
+    "description": "A service that applies various machine learning classification algorithms",
+    "version": "1.0.0",
+    "x-service-type": "DISPATCH"
+  },
+  "paths": {
+    "/apply_classification": {
+      "post": {
+        "summary": "Apply Machine Learning Classification",
+        "description": "Apply classification algorithms to industrial datasets",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "training_data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    },
+                    "description": "Training dataset for classification"
+                  },
+                  "classification_algorithm": {
+                    "type": "string",
+                    "enum": [
+                      "random_forest",
+                      "support_vector_machine",
+                      "logistic_regression",
+                      "neural_network"
+                    ],
+                    "description": "Machine learning classification algorithm to use"
+                  },
+                  "target_variable": {
+                    "type": "string",
+                    "description": "Name of the column to be classified"
+                  },
+                  "projection_attributes": {
+                    "type": "string",
+                    "description": "Subset of attributes to include in the result"
+                  },
+                  "filter_expression": {
+                    "type": "string",
+                    "description": "Boolean expression based on attributes"
+                  },
+                  "transformation_function": {
+                    "type": "string",
+                    "description": "Function to transform data (e.g., lowercase, uppercase, number conversion)",
+                    "enum": [
+                      "lowercase",
+                      "uppercase",
+                      "to_number",
+                      "to_string"
+                    ]
+                  },
+                  "aggregation_function": {
+                    "type": "string",
+                    "description": "Function to aggregate data (e.g., average, max, min)",
+                    "enum": [
+                      "average",
+                      "max",
+                      "min",
+                      "sum",
+                      "count"
+                    ]
+                  }
+                },
+                "required": [
+                  "training_data",
+                  "classification_algorithm",
+                  "target_variable"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful machine learning classification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "model_performance": {
+                      "type": "object",
+                      "description": "Performance metrics of the classification model"
+                    },
+                    "classification_results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "description": "Classified data points"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
