@@ -1,4 +1,4 @@
-# LLM-driven Data Service Discovery in the Internet of Production
+# Prompting Strategies for LLM-based Cooperative Data Service Discovery
 
 Supplementary material.
 
